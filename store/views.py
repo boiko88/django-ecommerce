@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 
 
 def store(request):
-    context ={}
+    context = {}
     return render(request, 'store/store.html', context)
 
 
