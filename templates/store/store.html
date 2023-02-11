@@ -2,6 +2,29 @@
 {% load static %}
 {% block content %}
 
-<h2>This is a Store Page</h2>
+    <h2>This is a Store Page</h2>
+
+    <div class="row">
+        <div class="col-lg-4">
+            <img class="thumbnail" src={% static 'images/placeholder.png' %}>
+            <div class="box-element product">
+                <h6><strong>Product</strong></h6>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <img class="thumbnail" src={% static 'images/placeholder.png' %}>
+            <div class="box-element product">
+                <h6><strong>Product</strong></h6>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <img class="thumbnail" src={% static 'images/placeholder.png' %}>
+            <div class="box-element product">
+                <h6><strong>Product</strong></h6>
+            </div>
+        </div>
+    </div>
 
 {% endblock content %}
