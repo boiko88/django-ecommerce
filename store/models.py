@@ -14,7 +14,7 @@ class Product(models.Model):
     name = models.CharField(max_length=200, null=True)
     price = models.FloatField()
     digital = models.BooleanField(default=False, blank=False, null=True)
-    #image
+    image = models.ImageField(null=True, blank=True)
     
     def __str__(self):
         return self.name
