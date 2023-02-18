@@ -8,7 +8,8 @@
     <div class="row">
         {% for product in products %}
         <div class="col-lg-4">
-            <img class="thumbnail" src={% static 'images/placeholder.png' %}>
+            <!--It used to be product.imageURL, since we use a decorator now from models we have {{ product.imageURL }} -->
+            <img class="thumbnail" src={{ product.imageURL }}>
             <div class="box-element product">
                 <h6><strong>{{product.name}}</strong></h6>
                 <hr>
