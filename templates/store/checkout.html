@@ -50,6 +50,7 @@
         <br>
         <div class="box-element" id="payment-info">
             <small>Stripe Options</small>
+            <button id="make-payment" class="btn btn-success btn-block">Make Payment</button>
         </div>
     </div>
 
@@ -78,10 +79,17 @@
 
     if(shipping == 'False'){
         document.getElementById('shipping-info').innerHTML = ""
-
     }
+
+    var form = document.getElementById('form')
+
+    form.addEventListener('submit', function(e){
+        e.preventDefault()
+        console.log('Form submitted')
+        document.getElementById('form-button').classList.add('hidden')
+        document.getElementById('payment-info').classList.remove('hidden')
+        })
+
 </script>
-
-
 
 {% endblock content %}
