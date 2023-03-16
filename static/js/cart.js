@@ -17,7 +17,7 @@ for (i = 0; i < updateBtns.length; i++) {
 }
 
 function updateUserOrder(productId, action){
-	console.log('User is authenticated, sending data...')
+	console.log('User is logged in')
 
 		var url = '/update_item/'
 
