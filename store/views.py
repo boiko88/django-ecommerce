@@ -14,7 +14,7 @@ def store(request):
         items = []
         # Here we have to assign get_cart_total and get_cart_items to zero, otherwise 
         # if a user is not logged in we will have an error
-        order = {'get_cart_total':0, 'get_cart_items': 0}
+        order = {'get_cart_total':0, 'get_cart_items': 0, 'shipping': False}
         cartItems = order['get_cart_items']
     products = Product.objects.all()
     context = {'products': products, 'cartItems': cartItems}
@@ -32,7 +32,7 @@ def cart(request):
         items = []
         # Here we have to assign get_cart_total and get_cart_items to zero, otherwise 
         # if a user is not logged in we will have an error
-        order = {'get_cart_total':0, 'get_cart_items': 0}
+        order = {'get_cart_total':0, 'get_cart_items': 0, 'shipping': False}
         cartItems = order['get_cart_items']
     context = {'items': items, 'order': order, 'cartItems': cartItems}
     return render(request, 'store/cart.html', context)
@@ -48,7 +48,7 @@ def checkout(request):
         items = []
         # Here we have to assign get_cart_total and get_cart_items to zero, otherwise 
         # if a user is not logged in we will have an error
-        order = {'get_cart_total':0, 'get_cart_items': 0}
+        order = {'get_cart_total':0, 'get_cart_items': 0, 'shipping': False}
         cartItems = order['get_cart_items']
     context = {'items': items, 'order': order, 'cartItems': cartItems}
     return render(request, 'store/checkout.html', context)
