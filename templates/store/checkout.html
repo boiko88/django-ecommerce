@@ -78,7 +78,18 @@
     var shipping = '{{order.shipping}}'
 
     if(shipping == 'False'){
-        document.getElementById('shipping-info').innerHTML = ""
+        document.getElementById('shipping-info').innerHTML = ''
+    }
+
+    if(user != 'AnonumousUser'){
+        document.getElementById('user-info').innerHTML = ''
+    }
+
+    if(shipping == 'False' && user != 'AnonumousUser'){
+        //Hide entire form if user is logged in and shipping is False
+        document.getElementById('form-wrapper').classList.add('hidden')
+        //Show payment if a logged in user wants to buy an item that does not require shipping
+        document.getElementById('payment-info').classList.remove('hidden')
     }
 
     var form = document.getElementById('form')
@@ -89,6 +100,14 @@
         document.getElementById('form-button').classList.add('hidden')
         document.getElementById('payment-info').classList.remove('hidden')
         })
+
+    document.getElementById('make-payment').addEventListener('click', function(e){
+        submitFormData()
+    })
+
+    function submitFormData(){
+        console.log('Button Clicked')
+    }
 
 </script>
 
