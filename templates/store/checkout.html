@@ -137,6 +137,17 @@
             userFormData.email = form.email.value
 
         }
+
+        var url = '/process_order/'
+        fetch(url, {
+            method: 'POST',
+            headers:{
+                'Content-Type':'application/json'
+                'X-CSRFToken':CSRFToken,
+                // our csrftoken is in our main file
+            }
+            body:JSON.stringify({'form'})
+        })
     }
 
 </script>
