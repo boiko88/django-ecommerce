@@ -76,7 +76,7 @@
 
 <script type="text/javascript">
     var shipping = '{{order.shipping}}'
-    var total = '{{order.get_cart_total|floatformat:2}}'
+    var total = '{{order.get_cart_total}}'
 
     if(shipping == 'False'){
         document.getElementById('shipping-info').innerHTML = ''
@@ -139,15 +139,23 @@
         }
 
         var url = '/process_order/'
-        fetch(url, {
-            method: 'POST',
+        fetch(url,{
+            method:'POST',
             headers:{
-                'Content-Type':'application/json'
-                'X-CSRFToken':CSRFToken,
-                // our csrftoken is in our main file
-            }
-            body:JSON.stringify({'form'})
+                'Content-Type':'application/json',
+                'X-CSRFToken':csrftoken,
+            },
+            body:JSON.stringify({'form': userFormData, 'shipping': shippingInfo}
+            )
         })
+        .then((response) => response.json())
+        .then((data) => {
+            console.log('Success:', data);
+            // Notify a user that transaction is complete and redirects him/her to the store page
+            alert('Transaction completed');
+            window.location.href = "{% url 'store' %}"
+        })
+        
     }
 
 </script>
