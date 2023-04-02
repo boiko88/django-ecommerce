@@ -30,6 +30,11 @@ def cart(request):
         items = order.orderitem_set.all()
         cartItems = order.get_cart_items
     else:
+        try:
+            cart = json.loads(request.COOKIES['cart'])
+        except:
+            cart = {}
+        print('Cart:', cart)
         items = []
         # Here we have to assign get_cart_total and get_cart_items to zero, otherwise 
         # if a user is not logged in we will have an error
