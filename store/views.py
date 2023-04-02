@@ -40,6 +40,16 @@ def cart(request):
         # if a user is not logged in we will have an error
         order = {'get_cart_total':0, 'get_cart_items': 0, 'shipping': False}
         cartItems = order['get_cart_items']
+        
+        for i in cart:
+            actualQauntity = cart[i]['quantity']
+            cartItems += actualQauntity
+            
+            product = Product.objects.get(id=i)
+            total = (product.price * actualQauntity)
+            
+            order['get_cart_total'] += total
+        
     context = {'items': items, 'order': order, 'cartItems': cartItems}
     return render(request, 'store/cart.html', context)
 
