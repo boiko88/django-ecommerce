@@ -30,6 +30,7 @@ def cart(request):
         items = order.orderitem_set.all()
         cartItems = order.get_cart_items
     else:
+        # We use try except here because a new user doesn't have 'cart' since it's his first visit 
         try:
             cart = json.loads(request.COOKIES['cart'])
         except:
@@ -49,7 +50,21 @@ def cart(request):
             total = (product.price * actualQauntity)
             
             order['get_cart_total'] += total
-        
+            order['get_cart_items'] += actualQauntity
+            
+            item = {
+                'product':{
+                    'id':product.id,
+                    'name':product.name,
+                    'price':product.price,
+                    'imageURL':product.imageURL,  
+                    },
+                'quantity':actualQauntity,
+                'get_total':total,
+            }
+            items.append(item)
+            
+            
     context = {'items': items, 'order': order, 'cartItems': cartItems}
     return render(request, 'store/cart.html', context)
 
