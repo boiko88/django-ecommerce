@@ -1,8 +1,10 @@
 from django.shortcuts import render, redirect
-from .models import *
+from . models import *
 from django.http import JsonResponse
 import json
 import datetime
+
+from . utils import cookieCart
 
 
 def store(request):
@@ -12,11 +14,9 @@ def store(request):
         items = order.orderitem_set.all()
         cartItems = order.get_cart_items
     else:
-        items = []
-        # Here we have to assign get_cart_total and get_cart_items to zero, otherwise 
-        # if a user is not logged in we will have an error
-        order = {'get_cart_total':0, 'get_cart_items': 0, 'shipping': False}
-        cartItems = order['get_cart_items']
+        cookieData = cookieCart()
+        cartItems = cookieData['cartItems']
+        
     products = Product.objects.all()
     context = {'products': products, 'cartItems': cartItems}
     return render(request, 'store/store.html', context)
@@ -30,40 +30,10 @@ def cart(request):
         items = order.orderitem_set.all()
         cartItems = order.get_cart_items
     else:
-        # We use try except here because a new user doesn't have 'cart' since it's his first visit 
-        try:
-            cart = json.loads(request.COOKIES['cart'])
-        except:
-            cart = {}
-        print('Cart:', cart)
-        items = []
-        # Here we have to assign get_cart_total and get_cart_items to zero, otherwise 
-        # if a user is not logged in we will have an error
-        order = {'get_cart_total':0, 'get_cart_items': 0, 'shipping': False}
-        cartItems = order['get_cart_items']
-        
-        for i in cart:
-            actualQauntity = cart[i]['quantity']
-            cartItems += actualQauntity
-            
-            product = Product.objects.get(id=i)
-            total = (product.price * actualQauntity)
-            
-            order['get_cart_total'] += total
-            order['get_cart_items'] += actualQauntity
-            
-            item = {
-                'product':{
-                    'id':product.id,
-                    'name':product.name,
-                    'price':product.price,
-                    'imageURL':product.imageURL,  
-                    },
-                'quantity':actualQauntity,
-                'get_total':total,
-            }
-            items.append(item)
-            
+        cookieData = cookieCart()
+        cartItems = cookieData['cartItems']
+        order = cookieData['order']
+        items = cookieData['items']
             
     context = {'items': items, 'order': order, 'cartItems': cartItems}
     return render(request, 'store/cart.html', context)
@@ -76,11 +46,11 @@ def checkout(request):
         items = order.orderitem_set.all()
         cartItems = order.get_cart_items
     else:
-        items = []
-        # Here we have to assign get_cart_total and get_cart_items to zero, otherwise 
-        # if a user is not logged in we will have an error
-        order = {'get_cart_total':0, 'get_cart_items': 0, 'shipping': False}
-        cartItems = order['get_cart_items']
+        cookieData = cookieCart()
+        cartItems = cookieData['cartItems']
+        order = cookieData['order']
+        items = cookieData['items']
+        
     context = {'items': items, 'order': order, 'cartItems': cartItems}
     return render(request, 'store/checkout.html', context)
 
