@@ -53,9 +53,13 @@ def cartData(request):
         items = order.orderitem_set.all()
         cartItems = order.get_cart_items
     else:
-        cookieData = cookieCart()
+        cookieData = cookieCart(request)
         cartItems = cookieData['cartItems']
         order = cookieData['order']
         items = cookieData['items']
         
     return {'cartItems':cartItems, 'order':order, 'items':items}
+
+
+def guestOrder(data, request):
+    pass
