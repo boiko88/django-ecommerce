@@ -96,7 +96,7 @@
 
     var form = document.getElementById('form')
 
-    csrftoken = form.getElementsByTagName("input")[0].value
+    csrftoken = form.getElementsByTagName('input')[0].value
     console.log('Newtoken:', form.getElementsByTagName("input")[0].value)
 
     form.addEventListener('submit', function(e){
@@ -127,10 +127,10 @@
         }
 
         if(shipping != 'False'){
-            userFormData.address = form.address.value
-            userFormData.city = form.city.value
-            userFormData.state = form.state.value
-            userFormData.zipcode = form.zipcode.value
+            shippingInfo.address = form.address.value
+            shippingInfo.city = form.city.value
+            shippingInfo.state = form.state.value
+            shippingInfo.zipcode = form.zipcode.value
              
         }
 
@@ -157,6 +157,8 @@
             console.log('Success:', data);
             // Notify a user that transaction is complete and redirects him/her to the store page
             alert('Transaction completed');
+            cart = {}
+            document.cookie ='cart=' + JSON.stringify(cart) + ";domain=;path=/"
             window.location.href = "{% url 'store' %}"
         })
         
