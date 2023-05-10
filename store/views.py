@@ -20,7 +20,7 @@ def store(request):
 def faq(request):
 
     context = {}
-    return render(request, 'store/store.html', context)
+    return render(request, 'store/faq.html', context)
 
 
 def cart(request):
