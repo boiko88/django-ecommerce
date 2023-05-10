@@ -2,12 +2,12 @@
 {% load static %}
 {% block content %}
 
-    <h2>This is a Store Page</h2>
+    <h2>This is a F.A.Q. Page</h2>
     
+
     <div class="row">
         {% for product in products %}
         <div class="col-lg-4">
-            <!--It used to be product.imageURL, since we use a decorator now from models we have {{ product.imageURL }} -->
             <img class="thumbnail" src={{ product.imageURL }}>
             <div class="box-element product">
                 <h6><strong>{{product.name}}</strong></h6>
