@@ -18,8 +18,12 @@ def store(request):
 
 
 def faq(request):
+    
+    data = cartData(request)
+    cartItems = data['cartItems']
+    products = Product.objects.all()
 
-    context = {}
+    context = {'products': products, 'cartItems': cartItems}
     return render(request, 'store/faq.html', context)
 
 
