@@ -107,3 +107,10 @@ def processOrder(request):
         )
 
     return JsonResponse('Payment Complete', safe=False)
+
+def login_registration(request):
+    return render(request, 'store/login_registration.html')
+
+
+def user_registration(request):
+    return render(request, 'store/user_registration.html')

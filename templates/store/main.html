@@ -72,8 +72,8 @@
                     <a class="nav-link active" aria-current="page" href={% url 'faq' %}>F.A.Q.</a>
                 </ul>
                 <div class="form-inline my-2 my-lg-0">
-                  <a href="#"class="btn btn-warning">Login</a>    
-                  <a href="{% url 'cart' %}">
+                  <a href={% url 'login_registration' %} class="btn btn-warning">Login</a>    
+                  <a href={% url 'cart' %}>
                     <img id="cart-icon" src={% static 'images/cart.png' %}>
                   </a>
                   <p id="cart-total">{{cartItems}}</p>

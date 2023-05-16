@@ -1,0 +1,26 @@
+{% extends 'store/main.html' %}
+
+{% block content %}
+    <center>
+    <h1>Please Log in</h1>
+    <div>
+        <form method="POST" action="">
+            {% csrf_token %}
+            <label>Username</label>
+            <input type="text" name="username" placeholder="Type your name"/>
+            <br/>
+            <br/>
+            <label>Password</label>
+            <input type="password" name="password" placeholder="Type your password"/>
+            <br/>
+            <br/>
+            <input type="submit" value="login"/>
+            <br/>
+            <br/>
+            
+            <a type="button" class="btn btn-secondary" href='#'>Do not have an account? Register!</a>
+        </form>
+    </div>
+    
+    <center>
+{% endblock %}
