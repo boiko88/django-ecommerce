@@ -1,4 +1,8 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib import messages
 from . models import *
 from django.http import JsonResponse
 import json
@@ -108,9 +112,34 @@ def processOrder(request):
 
     return JsonResponse('Payment Complete', safe=False)
 
-def login_registration(request):
+def loginRegistration(request):
     return render(request, 'store/login_registration.html')
 
 
-def user_registration(request):
-    return render(request, 'store/user_registration.html')
+def userRegistration(request):
+    form = UserCreationForm()
+
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.username = user.username.lower()
+            user.save()
+            login(request, user)
+            # automatically asigns a user to a group - in this case user so he can't see some pages
+            # group = Group.objects.get(name='customer')
+            # user.groups.add(group)
+            return redirect('store.html')
+
+        else:
+            messages.error(
+                request, 'Ooops, something went wrong during the registration')
+            
+    context = {'form': form}
+        
+    return render(request, 'store/user_registration.html', context)
+
+
+def logoutUser(request):
+    logout(request)
+    return redirect('store')
