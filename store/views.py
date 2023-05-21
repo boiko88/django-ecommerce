@@ -113,7 +113,26 @@ def processOrder(request):
     return JsonResponse('Payment Complete', safe=False)
 
 def loginRegistration(request):
-    return render(request, 'store/login_registration.html')
+    # Saving password and username of our users
+    if request.method == 'POST':
+        username = request.POST.get('username').lower()
+        password = request.POST.get('password')
+        try:
+            user = User.objects.get(username=username)
+        except:
+            messages.error(request, 'User does not exist')
+
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            login(request, user)
+            return redirect('store')
+        else:
+            messages.error(request, 'Username OR password does not exist')
+
+    context = {}
+
+    return render(request, 'store/login_registration.html', context)
 
 
 def userRegistration(request):
@@ -129,7 +148,7 @@ def userRegistration(request):
             # automatically asigns a user to a group - in this case user so he can't see some pages
             # group = Group.objects.get(name='customer')
             # user.groups.add(group)
-            return redirect('store.html')
+            return redirect('store')
 
         else:
             messages.error(
