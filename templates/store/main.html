@@ -69,6 +69,7 @@
               {% endif %}
               <a class="navbar-brand" href={% url 'store' %}>Ecommerce</a>
               <a class="navbar-brand" aria-current="page" href={% url 'faq' %}>F.A.Q.</a>
+              <a class="navbar-brand" aria-current="page" href={% url 'description' %}>Description</a>
               {% if request.user.is_authenticated %}
               <li><a href={% url 'logout_user' %} class="btn btn-warning">Logout</a></li>
               {% else %}
