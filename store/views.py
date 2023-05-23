@@ -17,17 +17,23 @@ def store(request):
     cartItems = data['cartItems']
     products = Product.objects.all()
 
-    context = {'products': products, 'cartItems': cartItems}
+    context = {
+        'products': products,
+        'cartItems': cartItems,
+    }
     return render(request, 'store/store.html', context)
 
 
 def faq(request):
-    
+
     data = cartData(request)
     cartItems = data['cartItems']
     products = Product.objects.all()
 
-    context = {'products': products, 'cartItems': cartItems}
+    context = {
+        'products': products,
+        'cartItems': cartItems,
+    }
     return render(request, 'store/faq.html', context)
 
 
@@ -38,7 +44,11 @@ def cart(request):
     order = data['order']
     items = data['items']
 
-    context = {'items': items, 'order': order, 'cartItems': cartItems}
+    context = {
+        'items': items,
+        'order': order,
+        'cartItems': cartItems,
+    }
     return render(request, 'store/cart.html', context)
 
 
@@ -49,7 +59,11 @@ def checkout(request):
     order = data['order']
     items = data['items']
 
-    context = {'items': items, 'order': order, 'cartItems': cartItems}
+    context = {
+        'items': items,
+        'order': order,
+        'cartItems': cartItems,
+    }
     return render(request, 'store/checkout.html', context)
 
 
@@ -112,6 +126,7 @@ def processOrder(request):
 
     return JsonResponse('Payment Complete', safe=False)
 
+
 def loginRegistration(request):
     # Saving password and username of our users
     if request.method == 'POST':
@@ -153,9 +168,11 @@ def userRegistration(request):
         else:
             messages.error(
                 request, 'Ooops, something went wrong during the registration')
-            
-    context = {'form': form}
-        
+
+    context = {
+        'form': form,
+    }
+
     return render(request, 'store/user_registration.html', context)
 
 
@@ -167,5 +184,7 @@ def logoutUser(request):
 def description(request):
     products = Product.objects.all()
 
-    context = {'products': products}
+    context = {
+        'products': products,
+    }
     return render(request, 'store/description.html', context)
