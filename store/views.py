@@ -9,6 +9,7 @@ from django.http import JsonResponse
 import json
 import datetime
 from . utils import cookieCart, cartData, guestOrder
+from .forms import CommentForm
 
 
 def store(request):
@@ -188,3 +189,18 @@ def description(request):
         'products': products,
     }
     return render(request, 'store/description.html', context)
+
+
+def createComment(request):
+    form = CommentForm()
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('store')
+        
+    context = {
+        'form': form,
+    }
+    
+    return render(request, 'store/comment_form.html', context) 

@@ -2,6 +2,11 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
+class CustomerComments(models.Model):
+    rating = models.IntegerField(default=5, blank=True, null=True)
+    comment_body = models.CharField(max_length=1200, blank=True, null=True)
+
+
 class Customer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, blank=True, null=True)
     name = models.CharField(max_length=200, blank=True, null=True)
@@ -89,4 +94,3 @@ class ShippingAddress(models.Model):
     
     def __str__(self):
         return self.address
-    

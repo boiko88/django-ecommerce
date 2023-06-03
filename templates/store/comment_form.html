@@ -1,0 +1,15 @@
+{% extends 'store/main.html' %}
+{% load static %}
+{% block content %}
+
+<div>
+    <h1>This is a creation form for comments</h1>
+    <form method ="POST" action = "">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Submit"/>
+    </form>
+</div>
+</center>
+
+{% endblock %}
