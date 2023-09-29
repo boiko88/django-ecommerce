@@ -160,7 +160,12 @@ def userRegistration(request):
             user = form.save(commit=False)
             user.username = user.username.lower()
             user.save()
-            # automatically asigns a user to a group - in this case user so he can't see some pages
+            # create a new customer object and associate it with the user
+            customer = Customer.objects.create(user=user)
+            customer.name = user.username
+            customer.email = user.email
+            customer.save()
+            # automatically assign a user to a group - in this case user so he can't see some pages
             group = Group.objects.get(name='customer')
             user.groups.add(group)
             login(request, user)
