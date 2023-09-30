@@ -63,7 +63,16 @@
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container-fluid">
               {% if request.user.is_authenticated %}
-              <a class="navbar-brand" href="#">Hello dear {{request.user}}!</a>
+              <li class="nav-item dropdown">
+                <a class="navbar-brand" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Hello dear {{request.user}}!
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a class="link-secondary" href ={% url 'change_password' %}>Change Password</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="link-danger" href={% url 'logout_user' %}>Logout</a></li>
+                </ul>
+              </li>
               {% else %}
               <a class="navbar-brand" href="#">You are not registered</a>
               {% endif %}
@@ -71,10 +80,9 @@
               <a class="navbar-brand" aria-current="page" href={% url 'faq' %}>F.A.Q.</a>
               <a class="navbar-brand" aria-current="page" href={% url 'description' %}>Description</a>
               {% if request.user.is_authenticated %}
-              <li><a href={% url 'logout_user' %} class="btn btn-warning">Logout</a></li>
-              <a type="button" class="btn btn-secondary" href ={% url 'change_password' %}>Change Password</a>
+              <li><a href={% url 'logout_user' %} class="btn btn-danger">Logout</a></li>
               {% else %}
-              <li><a href={% url 'login_registration' %} class="btn btn-warning">Login</a></li>
+              <li><a href={% url 'login_registration' %} class="btn btn-success">Login</a></li>
               {% endif %}
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -83,7 +91,6 @@
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 </ul>
                 <div class="form-inline my-2 my-lg-0">
-                  {% comment %} <a href={% url 'login_registration' %} class="btn btn-warning">Login</a> {% endcomment %}
                   <a href={% url 'cart' %}>
                     <img id="cart-icon" src={% static 'images/cart.png' %}>
                     <p id="cart-total">{{cartItems}}</p>   

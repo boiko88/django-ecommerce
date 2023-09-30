@@ -26,6 +26,9 @@ class Product(models.Model):
     def __str__(self):
         return self.name
     
+    # The @property decorator in Python is used to define a method as a "getter" for a class attribute. 
+    # In the context of the provided code, the imageURL method is a getter for the image attribute of the Product class.
+    # The @property decorator is applied to a method, making it accessible like an attribute rather than a method.
     @property
     def imageURL(self):
         try:
@@ -44,8 +47,6 @@ class Order(models.Model):
     
     def __str__(self):
         return str(self.id)
-    
-    
     # This class makes sure we don't need to ask address etc from a user if the produts he adds to the cart are only digital
     @property
     def shipping(self):
@@ -76,7 +77,7 @@ class OrderItem(models.Model):
     order = models.ForeignKey(Order, on_delete=models.SET_NULL, blank=True, null=True)
     quantity = models.IntegerField(default=0, null=True, blank=True)
     date_added = models.DateTimeField(auto_now_add=True)
-    
+
     @property
     def get_total(self):
         total = self.product.price * self.quantity
