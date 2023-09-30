@@ -10,6 +10,7 @@
         <div style="flex:2"><img class="row-image" src={{product.imageURL}}></div>
         <div style="flex:2">{{product.name}}</div>
         <div style="flex:2">${{product.price|floatformat:2 }}</div>
+        <div style="flex:2">{{product.description}}</div>
         <div style="flex:2">{{product.comment|floatformat:2 }}</div>
         <div style="flex:1">
         <a type="button" class="btn btn-secondary" href="{% url 'create_comment' %}">Create a new Comment</a>
