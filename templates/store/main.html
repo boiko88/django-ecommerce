@@ -10,8 +10,10 @@
         <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
 
         <script type="text/javascript">
+          // Get the current user
           var user = '{{request.user}}'
           
+          // Function to get the CSRF token from cookies
           function getToken(name) {
             var cookieValue = null;
             if (document.cookie && document.cookie !== '') {
@@ -27,6 +29,7 @@
             }
             return cookieValue;
           }
+          // Get the CSRF token
           var csrftoken = getToken('csrftoken');
         
           function getCookie(name) {
@@ -48,13 +51,16 @@
             // Return null if not found
             return null;
           }
+          // Get the cart from the cookie and parse it as a JSON object
           var cart = JSON.parse(getCookie('cart'))
 
+          // If the cart is undefined, create an empty cart, log a message, and set the cart cookie
           if (cart == undefined){
             cart = {}
             console.log('Cart Created!', cart)
             document.cookie ='cart=' + JSON.stringify(cart) + ";domain=;path=/"
           }
+          // Log the current contents of the cart
           console.log('Cart:', cart)
         </script>
 
@@ -62,6 +68,7 @@
     <body>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container-fluid">
+              <!-- If the user is authenticated, show a dropdown menu with options -->
               {% if request.user.is_authenticated %}
               <li class="nav-item dropdown">
                 <a class="navbar-brand" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -74,29 +81,33 @@
                 </ul>
               </li>
               {% else %}
+              <!-- If the user is not authenticated, show a message -->
               <a class="navbar-brand" href="#">You are not registered</a>
               {% endif %}
+              <!-- General navigation links -->
               <a class="navbar-brand" href={% url 'store' %}>Ecommerce</a>
               <a class="navbar-brand" aria-current="page" href={% url 'faq' %}>F.A.Q.</a>
               <a class="navbar-brand" aria-current="page" href={% url 'description' %}>Description</a>
+              <!-- If the user is authenticated, show a logout button -->
               {% if request.user.is_authenticated %}
               <li><a href={% url 'logout_user' %} class="btn btn-danger">Logout</a></li>
               {% else %}
+              <!-- If the user is not authenticated, show a login button -->
               <li><a href={% url 'login_registration' %} class="btn btn-success">Login</a></li>
               {% endif %}
+              <!-- Toggle button for responsive navigation -->
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>
               <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 </ul>
+                <!-- A link to the Cart itself via a picture -->
                 <div class="form-inline my-2 my-lg-0">
                   <a href={% url 'cart' %}>
                     <img id="cart-icon" src={% static 'images/cart.png' %}>
                     <p id="cart-total">{{cartItems}}</p>   
                   </a>
-                  
-                   
                 </div>
               </div>
             </div>
