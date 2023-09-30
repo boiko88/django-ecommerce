@@ -72,6 +72,7 @@
               <a class="navbar-brand" aria-current="page" href={% url 'description' %}>Description</a>
               {% if request.user.is_authenticated %}
               <li><a href={% url 'logout_user' %} class="btn btn-warning">Logout</a></li>
+              <a type="button" class="btn btn-secondary" href ={% url 'change_password' %}>Change Password</a>
               {% else %}
               <li><a href={% url 'login_registration' %} class="btn btn-warning">Login</a></li>
               {% endif %}

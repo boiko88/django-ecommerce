@@ -9,11 +9,13 @@ from django.http import JsonResponse
 import json
 import datetime
 from . utils import cookieCart, cartData, guestOrder
+from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.forms import PasswordChangeForm
 from .forms import CommentForm
 
 
-def store(request):
 
+def store(request):
     data = cartData(request)
     cartItems = data['cartItems']
     products = Product.objects.all()
@@ -26,7 +28,6 @@ def store(request):
 
 
 def faq(request):
-
     data = cartData(request)
     cartItems = data['cartItems']
     products = Product.objects.all()
@@ -39,7 +40,6 @@ def faq(request):
 
 
 def cart(request):
-
     data = cartData(request)
     cartItems = data['cartItems']
     order = data['order']
@@ -54,7 +54,6 @@ def cart(request):
 
 
 def checkout(request):
-
     data = cartData(request)
     cartItems = data['cartItems']
     order = data['order']
@@ -180,6 +179,29 @@ def userRegistration(request):
     }
 
     return render(request, 'store/user_registration.html', context)
+
+
+def changePassword(request):
+    form = PasswordChangeForm(request.user)
+
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            print('Form is valid')
+            user = form.save()
+            update_session_auth_hash(request, user)
+            return redirect('store')
+        else:
+            print('Form is not valid')
+            print(form.errors)
+
+    context = {
+        'form': form,
+    }
+
+    return render(request, 'store/change_password.html', context)
+
+
 
 
 def logoutUser(request):
