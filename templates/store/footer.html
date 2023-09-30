@@ -1,5 +1,7 @@
 {% load static %}
 
+<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+
 <!-- Footer -->
 <footer class="bg-light text-center ">
     <!-- Grid container -->
@@ -8,13 +10,13 @@
       <!-- Section: Social media -->
         <div class="social-icons"> 
           <!-- Facebook -->
-          <img style="width: 6%; height: auto;" src={% static 'images/facebook.png' %}>
+          <img class="socialimg" src={% static 'images/facebook.png' %}>
     
           <!-- Instagram -->
-          <img style="width: 6%; height: auto;" src={% static 'images/instagram.png' %}>
+          <img class="socialimg" src={% static 'images/instagram.png' %}>
     
           <!-- Linkedin -->
-          <img style="width: 6%; height: auto;" src={% static 'images/linkedin.png' %}>
+          <img class="socialimg" src={% static 'images/linkedin.png' %}>
           <br>
           <br>
         </div>
@@ -47,10 +49,7 @@
       </section>
       <section class="mb-4">
         <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt
-          distinctio earum repellat quaerat voluptatibus placeat nam,
-          commodi optio pariatur est quia magnam eum harum corrupti dicta,
-          aliquam sequi voluptate quas.
+          Welcome to our ecommerce platform to buy the best devices!
         </p>
       </section>
     <div class="text-center p-3" style="background-color: #20c997">
