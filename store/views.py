@@ -135,14 +135,14 @@ def processOrder(request):
     # Set the transaction ID for the order
     order.transaction_id = transaction_id
 
-
     # Check if the total amount matches the order's cart total
     if total == float(order.get_cart_total):
         order.complete = True
     order.save()
 
     if order.shipping:
-        # If the order has a shipping address, create a new ShippingAddress object
+        # If the order has a shipping address, create a new ShippingAddress
+        # object
         ShippingAddress.objects.create(
             customer=customer,
             order=order,
@@ -171,7 +171,8 @@ def loginRegistration(request):
         user = authenticate(request, username=username, password=password)
 
         if user is not None:
-            # If the user is authenticated, log them in and redirect to the store page
+            # If the user is authenticated, log them in and redirect to the
+            # store page
             login(request, user)
             return redirect('store')
         else:
@@ -192,7 +193,8 @@ def userRegistration(request):
         # Bind the form to the POST data
         form = UserCreationForm(request.POST)
         if form.is_valid():
-            # Create a new user object from the form data convert it to lowercase and save
+            # Create a new user object from the form data convert it to
+            # lowercase and save
             user = form.save(commit=False)
             user.username = user.username.lower()
             user.save()
@@ -201,7 +203,8 @@ def userRegistration(request):
             customer.name = user.username
             customer.email = user.email
             customer.save()
-            # automatically assign a user to a group - in this case user so he can't see some pages
+            # automatically assign a user to a group - in this case user so he
+            # can't see some pages
             group = Group.objects.get(name='customer')
             user.groups.add(group)
             login(request, user)
@@ -226,7 +229,8 @@ def changePassword(request):
         # Bind the form to the submitted data
         form = PasswordChangeForm(request.user, request.POST)
         if form.is_valid():
-            # Save the new password and update the user's session authentication hash
+            # Save the new password and update the user's session
+            # authentication hash
             print('Form is valid')
             user = form.save()
             update_session_auth_hash(request, user)
@@ -269,4 +273,4 @@ def createComment(request):
         'form': form,
     }
     
-    return render(request, 'store/comment_form.html', context) 
+    return render(request, 'store/comment_form.html', context)

@@ -28,7 +28,7 @@ class Product(models.Model):
         return self.name
 
     # The @property decorator in Python is used to define a method as a 
-    # "getter" for a class attribute.
+    # 'getter' for a class attribute.
     # In the context of the provided code, the imageURL method is a getter for 
     # the image attribute of the Product class.
     # The @property decorator is applied to a method, making it accessible 
