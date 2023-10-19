@@ -4,13 +4,15 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import Group
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
-from . models import *
-from django.http import JsonResponse
-import json
-import datetime
-from . utils import cookieCart, cartData, guestOrder
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
+from django.http import JsonResponse
+
+import json
+from datetime import datetime
+
+from . models import Product, Order, OrderItem, ShippingAddress, Customer
+from . utils import cartData, guestOrder
 from .forms import CommentForm
 
 
@@ -139,7 +141,7 @@ def processOrder(request):
         order.complete = True
     order.save()
 
-    if order.shipping == True:
+    if order.shipping:
         # If the order has a shipping address, create a new ShippingAddress object
         ShippingAddress.objects.create(
             customer=customer,
@@ -241,8 +243,6 @@ def changePassword(request):
     return render(request, 'store/change_password.html', context)
 
 
-
-
 def logoutUser(request):
     logout(request)
     return redirect('store')
@@ -264,7 +264,7 @@ def createComment(request):
         if form.is_valid():
             form.save()
             return redirect('store')
-        
+       
     context = {
         'form': form,
     }

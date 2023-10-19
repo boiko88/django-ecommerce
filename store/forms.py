@@ -1,6 +1,7 @@
 from django.forms import ModelForm
-from .models import CustomerComments
 from django import forms
+
+from .models import CustomerComments
 
 
 class CommentForm(ModelForm):
