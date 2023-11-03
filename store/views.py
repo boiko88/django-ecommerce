@@ -76,7 +76,7 @@ def checkout(request):
     return render(request, 'store/checkout.html', context)
 
 
-def updateItem(request):
+def update_item(request):
     # Load the JSON data from the request body
     data = json.loads(request.body)
     # Get the product ID and action from the JSON data
@@ -113,7 +113,7 @@ def updateItem(request):
     return JsonResponse('Item was added', safe=False)
 
 
-def processOrder(request):
+def process_order(request):
     # Print the request body for debugging purposes
     print('Data:', request.body)
     # Generate a unique transaction ID using the current timestamp
@@ -155,7 +155,7 @@ def processOrder(request):
     return JsonResponse('Payment Complete', safe=False)
 
 
-def loginRegistration(request):
+def login_registration(request):
     if request.method == 'POST':
         # Get the username and password from the POST data
         username = request.POST.get('username').lower()
@@ -185,7 +185,7 @@ def loginRegistration(request):
     return render(request, 'store/login_registration.html', context)
 
 
-def userRegistration(request):
+def user_registration(request):
     # Create an instance for the current form
     form = UserCreationForm()
 
@@ -221,7 +221,7 @@ def userRegistration(request):
     return render(request, 'store/user_registration.html', context)
 
 
-def changePassword(request):
+def change_password(request):
     # Create a PasswordChangeForm instance for the current user
     form = PasswordChangeForm(request.user)
 
@@ -247,7 +247,7 @@ def changePassword(request):
     return render(request, 'store/change_password.html', context)
 
 
-def logoutUser(request):
+def logout_user(request):
     logout(request)
     return redirect('store')
 
@@ -261,7 +261,7 @@ def description(request):
     return render(request, 'store/description.html', context)
 
 
-def createComment(request):
+def create_comment(request):
     form = CommentForm()
     if request.method == 'POST':
         form = CommentForm(request.POST)
